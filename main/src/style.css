@@ -1,3 +1,6 @@
+* {
+    font-family: 'Alata';
+}
 .container {
     margin: 24px;
     display: flex;
@@ -26,4 +29,42 @@ button:not([disabled]):hover {
 
 .hidden {
     display: none;
+}
+
+#shapePicker {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 8px;
+    row-gap: 8px;
+}
+.shapeElement {
+    padding: 8px;
+    border-radius: 2px;
+    aspect-ratio: 1/1;
+    outline: 1px solid black;
+}
+.shapeElement:hover {
+    outline: 3px solid rgb(82, 88, 228);
+    cursor: pointer;
+}
+
+#shapeEditor {
+    display: none;
+}
+#editTitle {
+    display: flex;
+}
+#editTitle > div {
+    margin-right: 10px;
+}
+.autoAlign {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#shapeViewer {
+    border: 3px solid black;
+    aspect-ratio: 1/1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
 }
