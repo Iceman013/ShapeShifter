@@ -19,6 +19,7 @@ function addShapesToPicker() {
         });
     }
 }
+
 addOnUISdk.ready.then(function() {
     addShapesToPicker();
 
