@@ -6,6 +6,10 @@ export function convertSVGToUrl() {
     var img = new Image();
     var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
     var url = DOMURL.createObjectURL(svg);
+    let parent = document.getElementById("png-container");
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
     img.onload = function() {
         ctx.drawImage(img, 0, 0);
         var png = canvas.toDataURL("image/png");
@@ -13,5 +17,6 @@ export function convertSVGToUrl() {
         DOMURL.revokeObjectURL(png);
     };
     img.src = url;
+    img.id = "chosenOne";
     return url;
 }

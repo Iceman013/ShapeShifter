@@ -23,3 +23,7 @@ button:not([disabled]):hover {
     background-color: rgb(64, 70, 202);
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}
