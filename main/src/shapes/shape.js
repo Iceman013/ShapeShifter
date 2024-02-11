@@ -130,9 +130,15 @@ export class Shape {
     editMode() {
         document.getElementById("shapeSelector").style.display = "none";
         document.getElementById("shapeEditor").style.display = "block";
-        this.tempPoints = this.points;
+        this.tempPoints = [];
+        for (let i = 0; i < this.points.length; i++) {
+            this.tempPoints[i] = {"x": this.points[i].x, "y": this.points[i].y};
+        }
         this.width = 2;
         this.color = "#000000";
+        document.getElementById("fill").checked = this.fill;
+        document.getElementById("fillColor").value = this.fillColor;
+        document.getElementById("opacity").value = this.opacity;
         document.getElementById("weight").value = this.width;
         document.getElementById("color").value = this.color;
 
@@ -143,6 +149,18 @@ export class Shape {
             if (me.chosen != -1) {
                 me.tempPoints[me.chosen].x = event.offsetX/250;
                 me.tempPoints[me.chosen].y = event.offsetY/250;
+                if (me.tempPoints[me.chosen].x < 0) {
+                    me.tempPoints[me.chosen].x = 0;
+                }
+                if (me.tempPoints[me.chosen].x > 1) {
+                    me.tempPoints[me.chosen].x = 1;
+                }
+                if (me.tempPoints[me.chosen].y < 0) {
+                    me.tempPoints[me.chosen].y = 0;
+                }
+                if (me.tempPoints[me.chosen].y > 1) {
+                    me.tempPoints[me.chosen].y = 1;
+                }
                 me.redraw();
             }
         });

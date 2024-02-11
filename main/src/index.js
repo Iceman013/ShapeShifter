@@ -26,7 +26,6 @@ addOnUISdk.ready.then(function() {
 
     const addShape = document.getElementById("addShape");
     addShape.addEventListener("click", function() {
-        addShape.innerHTML = "Clicked";
         convertSVGToUrl(document.getElementById("hiddenReal"));
         setTimeout(function() {
             let url = document.querySelector("img").src;

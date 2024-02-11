@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <link href='https://fonts.googleapis.com/css?family=Alata' rel='stylesheet'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
         <!-- My format -->
         <link rel="stylesheet" type="text/css" href="style.css"/>
@@ -25,7 +26,7 @@
         <div id="shapeEditor">
             <div id="editTitle">
                 <div class="autoAlign">
-                    <button onclick="goBack()">Go Back</button>
+                    <button onclick="goBack()" class="back"><span class="material-symbols-outlined">arrow_back_ios</span></button>
                 </div>
                 <div>
                     <h1>Shape Editor</h1>
@@ -39,16 +40,19 @@
                 <b>Fill Color</b>
                 <input id="fillColor" type="color" value="#000000">
                 <br>
-                <b>Opacity</b>
-                <input id="opacity" type="range" value="1" min="0" max="1" step="0.01">
-                <br>
                 <b>Border Color</b>
                 <input id="color" type="color" value="#000000">
                 <br>
                 <b>Border Weight</b>
-                <input id="weight" type="range" value="2" min="1" max="15" step="1">
                 <br>
-                <button id="addShape">Add Shape</button>
+                <input id="weight" type="range" value="2" min="1" max="15" step="1" class="range">
+                <br>
+                <b>Opacity</b>
+                <br>
+                <input id="opacity" type="range" value="1" min="0" max="1" step="0.01" class="range">
+                <br>
+                <br>
+                <button class="button" id="addShape">Add Shape</button>
             </div>
         </div>
         <p id="output"></p>
