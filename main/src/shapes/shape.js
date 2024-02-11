@@ -146,7 +146,7 @@ export class Shape {
                 me.redraw();
             }
         });
-        document.getElementById("shapeViewer").addEventListener("mouseup", function(event) {
+        document.getElementById("shapeViewer").addEventListener("mouseup", function() {
             me.chosen = -1;
         });
         document.getElementById("shapeViewer").addEventListener("mousedown", function(event) {
@@ -160,7 +160,19 @@ export class Shape {
                 }
             }
             me.chosen = closest;
-        })
+        });
+        document.getElementById("fill").addEventListener("change", function() {
+            me.fill = document.getElementById("fill").checked;
+            me.redraw();
+        });
+        document.getElementById("fillColor").addEventListener("change", function() {
+            me.fillColor = document.getElementById("fillColor").value;
+            me.redraw();
+        });
+        document.getElementById("opacity").addEventListener("input", function() {
+            me.opacity = document.getElementById("opacity").value;
+            me.redraw();
+        });
         document.getElementById("weight").addEventListener("input", function() {
             me.width = document.getElementById("weight").value;
             me.redraw();
