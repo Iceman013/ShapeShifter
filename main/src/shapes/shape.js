@@ -134,6 +134,9 @@ export class Shape {
         for (let i = 0; i < this.points.length; i++) {
             this.tempPoints[i] = {"x": this.points[i].x, "y": this.points[i].y};
         }
+        this.fill = true;
+        this.fillColor = "#000000";
+        this.opacity = 1;
         this.width = 2;
         this.color = "#000000";
         document.getElementById("fill").checked = this.fill;
