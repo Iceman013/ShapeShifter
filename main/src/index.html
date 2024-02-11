@@ -33,17 +33,27 @@
             </div>
             <div id="shapeViewer"></div>
             <div id="controls">
-                <b>Color</b>
+                <b>Fill</b>
+                <input id="fill" type="checkbox" value="true">
+                <br>
+                <b>Fill Color</b>
+                <input id="fillColor" type="color" value="#000000">
+                <br>
+                <b>Opacity</b>
+                <input id="opacity" type="range" value="1" min="0" max="1" step="0.01">
+                <br>
+                <b>Border Color</b>
                 <input id="color" type="color" value="#000000">
                 <br>
-                <b>Weight</b>
-                <input id="weight" type="range" value="2" min="1" max="10" step="1">
+                <b>Border Weight</b>
+                <input id="weight" type="range" value="2" min="1" max="15" step="1">
                 <br>
                 <button id="addShape">Add Shape</button>
             </div>
         </div>
         <p id="output"></p>
         <div class="hidden">
+            <div id="hiddenCopy"></div>
             <div id="png-container"></div>
             <canvas id="myCanvas" width="250" height="250"></canvas>
         </div>

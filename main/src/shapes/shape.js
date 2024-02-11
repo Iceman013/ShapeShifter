@@ -5,6 +5,10 @@ export class Shape {
         this.tempPoints = [];
         this.width = 2;
         this.color = "#000000";
+        this.fill = true;
+        this.fillColor = "#000000";
+        this.opacity = 1;
+        this.chosen = -1;
     }
 
     draw(dimension) {
@@ -13,19 +17,28 @@ export class Shape {
         svg.setAttribute('viewbox', '0 0 ' + dimension + ' ' + dimension);
         svg.setAttribute('width', dimension + 'px');
         svg.setAttribute('height', dimension + 'px');
-        function drawLine(start, end) {
-            let newLine = document.createElementNS('http://www.w3.org/2000/svg','line');
-            newLine.setAttribute('x1', dimension*start.x);
-            newLine.setAttribute('y1', dimension*start.y);
-            newLine.setAttribute('x2', dimension*end.x);
-            newLine.setAttribute('y2', dimension*end.y);
-            newLine.setAttribute("stroke", "black");
-            newLine.setAttribute('stroke-width', 2);
-            return newLine;
+
+        const me = this;
+
+        let newPath = document.createElementNS("http://www.w3.org/2000/svg","path");
+        newPath.setAttribute("stroke", me.color);
+        newPath.setAttribute('stroke-width', me.width);
+        newPath.setAttribute("opacity", me.opacity);
+        if (me.fill) {
+            newPath.setAttribute("fill", me.fillColor);
+        } else {
+            newPath.setAttribute("fill", "none");
         }
-        for (let i = 0; i < this.points.length; i++) {
-            let line = drawLine(this.points[i], this.points[(i + 1)%this.points.length]);
-            svg.append(line);
+        let middleText = "M " + Math.floor(dimension*this.points[0].x) + " " + Math.floor(dimension*this.points[0].y);
+        for (let i = 1; i < this.points.length; i++) {
+            middleText += " L " + Math.floor(dimension*this.points[i].x) + " " + Math.floor(dimension*this.points[i].y);
+        }
+        middleText += " Z";
+        newPath.setAttributeNS(null, "d", middleText);
+        svg.append(newPath);
+        for (let i = 0; i < this.tempPoints.length; i++) {
+            let point = drawPoint(this.tempPoints[i]);
+            svg.append(point);
         }
         return svg;
     }
@@ -35,21 +48,65 @@ export class Shape {
         svg.setAttribute('viewbox', '0 0 ' + dimension + ' ' + dimension);
         svg.setAttribute('width', dimension + 'px');
         svg.setAttribute('height', dimension + 'px');
+
         const me = this;
-        function drawLine(start, end) {
-            let newLine = document.createElementNS('http://www.w3.org/2000/svg','line');
-            newLine.setAttribute('x1', dimension*start.x);
-            newLine.setAttribute('y1', dimension*start.y);
-            newLine.setAttribute('x2', dimension*end.x);
-            newLine.setAttribute('y2', dimension*end.y);
-            newLine.setAttribute("stroke", me.color);
-            newLine.setAttribute('stroke-width', me.width);
-            return newLine;
+        function drawPoint(start) {
+            let point = document.createElementNS('http://www.w3.org/2000/svg','circle');
+            point.setAttribute('cx', dimension*start.x);
+            point.setAttribute('cy', dimension*start.y);
+            point.setAttribute("r", Math.floor(me.width/2)*1.05 + 4);
+            point.setAttribute('fill', "blue");
+            return point;
         }
+
+        let newPath = document.createElementNS("http://www.w3.org/2000/svg","path");
+        newPath.setAttribute("stroke", me.color);
+        newPath.setAttribute('stroke-width', me.width);
+        newPath.setAttribute("opacity", me.opacity);
+        if (me.fill) {
+            newPath.setAttribute("fill", me.fillColor);
+        } else {
+            newPath.setAttribute("fill", "none");
+        }
+        let middleText = "M " + Math.floor(dimension*this.tempPoints[0].x) + " " + Math.floor(dimension*this.tempPoints[0].y);
+        for (let i = 1; i < this.tempPoints.length; i++) {
+            middleText += " L " + Math.floor(dimension*this.tempPoints[i].x) + " " + Math.floor(dimension*this.tempPoints[i].y);
+        }
+        middleText += " Z";
+        newPath.setAttributeNS(null, "d", middleText);
+        svg.append(newPath);
         for (let i = 0; i < this.tempPoints.length; i++) {
-            let line = drawLine(this.tempPoints[i], this.tempPoints[(i + 1)%this.tempPoints.length]);
-            svg.append(line);
+            let point = drawPoint(this.tempPoints[i]);
+            svg.append(point);
         }
+        return svg;
+    }
+
+    editDrawReal(dimension) {
+        let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("aria-hidden","true");
+        svg.setAttribute('viewbox', '0 0 ' + dimension + ' ' + dimension);
+        svg.setAttribute('width', dimension + 'px');
+        svg.setAttribute('height', dimension + 'px');
+
+        const me = this;
+
+        let newPath = document.createElementNS("http://www.w3.org/2000/svg","path");
+        newPath.setAttribute("stroke", me.color);
+        newPath.setAttribute('stroke-width', me.width);
+        newPath.setAttribute("opacity", me.opacity);
+        if (me.fill) {
+            newPath.setAttribute("fill", me.fillColor);
+        } else {
+            newPath.setAttribute("fill", "none");
+        }
+        let middleText = "M " + Math.floor(dimension*this.tempPoints[0].x) + " " + Math.floor(dimension*this.tempPoints[0].y);
+        for (let i = 1; i < this.tempPoints.length; i++) {
+            middleText += " L " + Math.floor(dimension*this.tempPoints[i].x) + " " + Math.floor(dimension*this.tempPoints[i].y);
+        }
+        middleText += " Z";
+        newPath.setAttributeNS(null, "d", middleText);
+        svg.append(newPath);
         return svg;
     }
 
@@ -61,7 +118,14 @@ export class Shape {
         let drawn = this.editDraw(250);
         drawn.id = "custom";
         base.appendChild(drawn);
-        document.getElementById("output").innerHTML = this.color;
+
+        let hidden = document.getElementById("hiddenCopy");
+        while (hidden.firstChild) {
+            hidden.removeChild(hidden.firstChild);
+        }
+        let drawnR = this.editDrawReal(250);
+        drawnR.id = "hiddenReal";
+        hidden.appendChild(drawnR);
     }
     editMode() {
         document.getElementById("shapeSelector").style.display = "none";
@@ -74,6 +138,29 @@ export class Shape {
 
         const me = this;
 
+
+        document.getElementById("shapeViewer").addEventListener("mousemove", function(event) {
+            if (me.chosen != -1) {
+                me.tempPoints[me.chosen].x = event.offsetX/250;
+                me.tempPoints[me.chosen].y = event.offsetY/250;
+                me.redraw();
+            }
+        });
+        document.getElementById("shapeViewer").addEventListener("mouseup", function(event) {
+            me.chosen = -1;
+        });
+        document.getElementById("shapeViewer").addEventListener("mousedown", function(event) {
+            let closest = -1;
+            let dist = 9999999999;
+            for (let i = 0; i < me.tempPoints.length; i++) {
+                let myDist = Math.pow(me.tempPoints[i].x - event.offsetX/250, 2) + Math.pow(me.tempPoints[i].y - event.offsetY/250, 2);
+                if (myDist < dist) {
+                    dist = myDist;
+                    closest = i;
+                }
+            }
+            me.chosen = closest;
+        })
         document.getElementById("weight").addEventListener("input", function() {
             me.width = document.getElementById("weight").value;
             me.redraw();
