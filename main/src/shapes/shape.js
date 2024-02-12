@@ -71,6 +71,10 @@ export class Shape {
         base.appendChild(drawn);
 
         let hidden = document.getElementById("hiddenCopy");
+        hidden.style.width = base.clientWidth + "px";
+        hidden.style.height = base.clientHeight + "px";
+        document.getElementById("myCanvas").width = base.clientWidth;
+        document.getElementById("myCanvas").height = base.clientHeight;
         while (hidden.firstChild) {
             hidden.removeChild(hidden.firstChild);
         }

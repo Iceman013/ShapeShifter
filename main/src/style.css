@@ -59,7 +59,7 @@ h1 {
 .shapeElement {
     border-radius: 2px;
     aspect-ratio: 1/1;
-    outline: 1px solid black;
+    border: 1px solid black;
 }
 .shapeElement:hover {
     outline: 3px solid rgb(82, 88, 228);
@@ -81,7 +81,7 @@ h1 {
 }
 #shapeViewer {
     border: 3px solid black;
-    aspect-ratio: 1/1;
+    aspect-ratio: 1;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -98,4 +98,7 @@ svg {
 
 #controls {
     line-height: 1.7;
+}
+#hidden {
+    width: 100%;
 }
