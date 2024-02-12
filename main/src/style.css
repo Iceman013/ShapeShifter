@@ -1,14 +1,7 @@
 * {
     font-family: 'Alata';
     user-select: none;
-}
-body {
-    overflow-x: hidden;
-}
-.container {
-    margin: 24px;
-    display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
 }
 h1 {
     margin-top: 0px;
@@ -55,11 +48,25 @@ h1 {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 8px;
     row-gap: 8px;
+    padding-right: 16px;
+}
+
+#shapeViewer {
+    border: 3px solid black;
+    width: 100%;
+    aspect-ratio: 1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 .shapeElement {
     border-radius: 2px;
     aspect-ratio: 1/1;
-    border: 1px solid black;
+    outline: 1px solid black;
+    padding: 4px;
+}
+svg {
+    overflow: hidden;
 }
 .shapeElement:hover {
     outline: 3px solid rgb(82, 88, 228);
@@ -79,12 +86,6 @@ h1 {
     margin-top: auto;
     margin-bottom: auto;
 }
-#shapeViewer {
-    border: 3px solid black;
-    aspect-ratio: 1;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
 b {
     font-size: larger;
@@ -98,7 +99,4 @@ svg {
 
 #controls {
     line-height: 1.7;
-}
-#hidden {
-    width: 100%;
 }

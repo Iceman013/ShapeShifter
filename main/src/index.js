@@ -11,7 +11,8 @@ function addShapesToPicker() {
         let base = document.createElement("div");
         base.classList.add("shapeElement");
         document.getElementById("shapePicker").appendChild(base);
-        let size = base.clientWidth;
+        let size = base.clientWidth - 8;
+        base.style.height = base.clientWidth + "px";
         let added = shapeList[i].draw(size);
         base.appendChild(added);
         const you = shapeList[i];

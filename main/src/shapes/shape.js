@@ -63,6 +63,7 @@ export class Shape {
     // Draw updated shape based on sliders
     redraw() {
         let base = document.getElementById("shapeViewer");
+        base.style.height = base.clientWidth + "px";
         while (base.firstChild) {
             base.removeChild(base.firstChild);
         }
