@@ -4,10 +4,10 @@ export class Shape {
         this.points = points;
         this.tempPoints = [];
         this.width = 2;
-        this.color = "#000000";
+        this.border = true;
+        this.borderColor = "#000000";
         this.fill = true;
         this.fillColor = "#000000";
-        this.opacity = 1;
         this.chosen = -1;
     }
 
@@ -36,9 +36,10 @@ export class Shape {
         }
 
         let newPath = document.createElementNS("http://www.w3.org/2000/svg","path");
-        newPath.setAttribute("stroke", me.color);
+        if (me.border) {
+            newPath.setAttribute("stroke", me.borderColor);
+        }
         newPath.setAttribute('stroke-width', me.width);
-        newPath.setAttribute("opacity", me.opacity);
         if (me.fill) {
             newPath.setAttribute("fill", me.fillColor);
         } else {
@@ -133,14 +134,14 @@ export class Shape {
         this.chosen = -1;
         this.fill = true;
         this.fillColor = "#000000";
-        this.opacity = 1;
+        this.border = true;
+        this.borderColor = "#000000";
         this.width = 2;
-        this.color = "#000000";
         document.getElementById("fill").checked = this.fill;
         document.getElementById("fillColor").value = this.fillColor;
-        document.getElementById("opacity").value = this.opacity;
+        document.getElementById("border").checked = this.border;
+        document.getElementById("borderColor").value = this.borderColor;
         document.getElementById("weight").value = this.width;
-        document.getElementById("color").value = this.color;
 
         const me = this;
 
@@ -152,16 +153,31 @@ export class Shape {
             me.fillColor = document.getElementById("fillColor").value;
             me.redraw();
         });
-        document.getElementById("opacity").addEventListener("input", function() {
-            me.opacity = document.getElementById("opacity").value;
+        document.getElementById("border").addEventListener("change", function() {
+            me.border = document.getElementById("border").checked;
+            me.redraw();
+        });
+        document.getElementById("borderColor").addEventListener("change", function() {
+            me.borderColor = document.getElementById("borderColor").value;
             me.redraw();
         });
         document.getElementById("weight").addEventListener("input", function() {
             me.width = document.getElementById("weight").value;
             me.redraw();
         });
-        document.getElementById("color").addEventListener("change", function() {
-            me.color = document.getElementById("color").value;
+        document.getElementById("swap").addEventListener("click", function() {
+            let temp = document.getElementById("fill").checked;
+            document.getElementById("fill").checked = document.getElementById("border").checked;
+            document.getElementById("border").checked = temp;
+
+            temp = document.getElementById("fillColor").value;
+            document.getElementById("fillColor").value = document.getElementById("borderColor").value;
+            document.getElementById("borderColor").value = temp;
+
+            me.fill = document.getElementById("fill").checked;
+            me.fillColor = document.getElementById("fillColor").value;
+            me.border = document.getElementById("border").checked;
+            me.borderColor = document.getElementById("borderColor").value;
             me.redraw();
         });
 

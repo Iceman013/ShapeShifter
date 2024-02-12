@@ -1,0 +1,29 @@
+.button {
+    background-color: rgb(82, 88, 228);
+    border-color: rgb(82, 88, 228);
+    border-radius: 50vh;
+    border-style: solid;
+    color: rgb(255, 255, 255);
+    font-family: sans-serif;
+    float: right;
+    font-weight: 700;
+    font-size: 27px;
+    padding: 5px 30px 5px 30px;
+}
+
+.button:disabled {
+    background-color: rgb(177, 177, 177);
+    border-color: rgb(177, 177, 177);
+}
+
+.button:not([disabled]):hover {
+    background-color: rgb(64, 70, 202);
+    cursor: pointer;
+}
+
+#colorPicker {
+    display: flex;
+}
+.range {
+    width: 80%;
+}
