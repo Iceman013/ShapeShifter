@@ -6,18 +6,38 @@ import { shapeList } from "./shapes/shapeList.js";
 import { Shape } from "./shapes/shape.js";
 
 function addShapesToPicker() {
+    let chosenShape = null;
     for (let i = 0; i < shapeList.length; i++) {
         let base = document.createElement("div");
         base.classList.add("shapeElement");
         document.getElementById("shapePicker").appendChild(base);
-        let size = 80;
+        console.log(base.clientWidth);
+        let size = base.clientWidth;
         let added = shapeList[i].draw(size);
         base.appendChild(added);
         const you = shapeList[i];
         added.addEventListener("click", function() {
+            document.getElementById("shapeSelector").style.display = "none";
+            document.getElementById("shapeEditor").style.display = "block";
+            chosenShape = you;
             you.editMode();
         });
     }
+
+    // Controls for moving verticies
+    document.getElementById("shapeViewer").addEventListener("mousedown", function(event) {
+        chosenShape.mouseDown(event);
+    });
+    document.getElementById("shapeViewer").addEventListener("mouseup", function(event) {
+        chosenShape.mouseUp(event);
+    });
+    document.getElementById("shapeViewer").addEventListener("mousemove", function(event) {
+        chosenShape.mouseMove(event);
+    });
+
+    document.addEventListener("mouseup", function(event) {
+        chosenShape.mouseUp(event);
+    });
 }
 
 

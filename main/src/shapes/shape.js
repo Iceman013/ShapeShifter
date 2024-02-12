@@ -11,38 +11,14 @@ export class Shape {
         this.chosen = -1;
     }
 
-    draw(dimension) {
-        let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("aria-hidden","true");
-        svg.setAttribute('viewbox', '0 0 ' + dimension + ' ' + dimension);
-        svg.setAttribute('width', dimension + 'px');
-        svg.setAttribute('height', dimension + 'px');
-
-        const me = this;
-
-        let newPath = document.createElementNS("http://www.w3.org/2000/svg","path");
-        newPath.setAttribute("stroke", me.color);
-        newPath.setAttribute('stroke-width', me.width);
-        newPath.setAttribute("opacity", me.opacity);
-        if (me.fill) {
-            newPath.setAttribute("fill", me.fillColor);
-        } else {
-            newPath.setAttribute("fill", "none");
+    // Draw shape
+    draw(dimension, verticies, edit) {
+        if (typeof verticies == "undefined") {
+            verticies = this.points;
         }
-        let middleText = "M " + Math.floor(dimension*this.points[0].x) + " " + Math.floor(dimension*this.points[0].y);
-        for (let i = 1; i < this.points.length; i++) {
-            middleText += " L " + Math.floor(dimension*this.points[i].x) + " " + Math.floor(dimension*this.points[i].y);
+        if (typeof edit == "undefined") {
+            edit = false;
         }
-        middleText += " Z";
-        newPath.setAttributeNS(null, "d", middleText);
-        svg.append(newPath);
-        for (let i = 0; i < this.tempPoints.length; i++) {
-            let point = drawPoint(this.tempPoints[i]);
-            svg.append(point);
-        }
-        return svg;
-    }
-    editDraw(dimension) {
         let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("aria-hidden","true");
         svg.setAttribute('viewbox', '0 0 ' + dimension + ' ' + dimension);
@@ -68,54 +44,29 @@ export class Shape {
         } else {
             newPath.setAttribute("fill", "none");
         }
-        let middleText = "M " + Math.floor(dimension*this.tempPoints[0].x) + " " + Math.floor(dimension*this.tempPoints[0].y);
-        for (let i = 1; i < this.tempPoints.length; i++) {
-            middleText += " L " + Math.floor(dimension*this.tempPoints[i].x) + " " + Math.floor(dimension*this.tempPoints[i].y);
+        let middleText = "M " + Math.floor(dimension*verticies[0].x) + " " + Math.floor(dimension*verticies[0].y);
+        for (let i = 1; i < verticies.length; i++) {
+            middleText += " L " + Math.floor(dimension*verticies[i].x) + " " + Math.floor(dimension*verticies[i].y);
         }
         middleText += " Z";
         newPath.setAttributeNS(null, "d", middleText);
         svg.append(newPath);
-        for (let i = 0; i < this.tempPoints.length; i++) {
-            let point = drawPoint(this.tempPoints[i]);
-            svg.append(point);
+        if (edit) {
+            for (let i = 0; i < verticies.length; i++) {
+                let point = drawPoint(verticies[i]);
+                svg.append(point);
+            }
         }
         return svg;
     }
 
-    editDrawReal(dimension) {
-        let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("aria-hidden","true");
-        svg.setAttribute('viewbox', '0 0 ' + dimension + ' ' + dimension);
-        svg.setAttribute('width', dimension + 'px');
-        svg.setAttribute('height', dimension + 'px');
-
-        const me = this;
-
-        let newPath = document.createElementNS("http://www.w3.org/2000/svg","path");
-        newPath.setAttribute("stroke", me.color);
-        newPath.setAttribute('stroke-width', me.width);
-        newPath.setAttribute("opacity", me.opacity);
-        if (me.fill) {
-            newPath.setAttribute("fill", me.fillColor);
-        } else {
-            newPath.setAttribute("fill", "none");
-        }
-        let middleText = "M " + Math.floor(dimension*this.tempPoints[0].x) + " " + Math.floor(dimension*this.tempPoints[0].y);
-        for (let i = 1; i < this.tempPoints.length; i++) {
-            middleText += " L " + Math.floor(dimension*this.tempPoints[i].x) + " " + Math.floor(dimension*this.tempPoints[i].y);
-        }
-        middleText += " Z";
-        newPath.setAttributeNS(null, "d", middleText);
-        svg.append(newPath);
-        return svg;
-    }
-
+    // Draw updated shape based on sliders
     redraw() {
         let base = document.getElementById("shapeViewer");
         while (base.firstChild) {
             base.removeChild(base.firstChild);
         }
-        let drawn = this.editDraw(250);
+        let drawn = this.draw(base.clientWidth, this.tempPoints, true);
         drawn.id = "custom";
         base.appendChild(drawn);
 
@@ -123,17 +74,58 @@ export class Shape {
         while (hidden.firstChild) {
             hidden.removeChild(hidden.firstChild);
         }
-        let drawnR = this.editDrawReal(250);
+        let drawnR = this.draw(base.clientWidth, this.tempPoints, false);
         drawnR.id = "hiddenReal";
         hidden.appendChild(drawnR);
     }
+
+    // Verticies dragging controls
+    mouseMove(event) {
+        if (this.chosen != -1) {
+            let size = document.getElementById("shapeViewer").clientWidth;
+            this.tempPoints[this.chosen].x = event.offsetX/size;
+            this.tempPoints[this.chosen].y = event.offsetY/size;
+            if (this.tempPoints[this.chosen].x < 0) {
+                this.tempPoints[this.chosen].x = 0;
+            }
+            if (this.tempPoints[this.chosen].x > 1) {
+                this.tempPoints[this.chosen].x = 1;
+            }
+            if (this.tempPoints[this.chosen].y < 0) {
+                this.tempPoints[this.chosen].y = 0;
+            }
+            if (this.tempPoints[this.chosen].y > 1) {
+                this.tempPoints[this.chosen].y = 1;
+            }
+            this.redraw();
+        }
+    }
+    mouseUp(event) {
+        this.chosen = -1;
+    }
+    mouseDown(event) {
+        let closest = -1;
+        let dist = 9999999999;
+        for (let i = 0; i < this.tempPoints.length; i++) {
+            let myDist = Math.pow(this.tempPoints[i].x - event.offsetX/250, 2) + Math.pow(this.tempPoints[i].y - event.offsetY/250, 2);
+            if (myDist < dist) {
+                dist = myDist;
+                closest = i;
+            }
+        }
+        this.chosen = closest;
+    }
+
+    // Display editting sidebar
     editMode() {
-        document.getElementById("shapeSelector").style.display = "none";
-        document.getElementById("shapeEditor").style.display = "block";
         this.tempPoints = [];
         for (let i = 0; i < this.points.length; i++) {
-            this.tempPoints[i] = {"x": this.points[i].x, "y": this.points[i].y};
+            this.tempPoints[i] = {
+                "x": this.points[i].x,
+                "y": this.points[i].y
+            };
         }
+        this.chosen = -1;
         this.fill = true;
         this.fillColor = "#000000";
         this.opacity = 1;
@@ -147,41 +139,6 @@ export class Shape {
 
         const me = this;
 
-
-        document.getElementById("shapeViewer").addEventListener("mousemove", function(event) {
-            if (me.chosen != -1) {
-                me.tempPoints[me.chosen].x = event.offsetX/250;
-                me.tempPoints[me.chosen].y = event.offsetY/250;
-                if (me.tempPoints[me.chosen].x < 0) {
-                    me.tempPoints[me.chosen].x = 0;
-                }
-                if (me.tempPoints[me.chosen].x > 1) {
-                    me.tempPoints[me.chosen].x = 1;
-                }
-                if (me.tempPoints[me.chosen].y < 0) {
-                    me.tempPoints[me.chosen].y = 0;
-                }
-                if (me.tempPoints[me.chosen].y > 1) {
-                    me.tempPoints[me.chosen].y = 1;
-                }
-                me.redraw();
-            }
-        });
-        document.getElementById("shapeViewer").addEventListener("mouseup", function() {
-            me.chosen = -1;
-        });
-        document.getElementById("shapeViewer").addEventListener("mousedown", function(event) {
-            let closest = -1;
-            let dist = 9999999999;
-            for (let i = 0; i < me.tempPoints.length; i++) {
-                let myDist = Math.pow(me.tempPoints[i].x - event.offsetX/250, 2) + Math.pow(me.tempPoints[i].y - event.offsetY/250, 2);
-                if (myDist < dist) {
-                    dist = myDist;
-                    closest = i;
-                }
-            }
-            me.chosen = closest;
-        });
         document.getElementById("fill").addEventListener("change", function() {
             me.fill = document.getElementById("fill").checked;
             me.redraw();
