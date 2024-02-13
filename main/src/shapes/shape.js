@@ -31,12 +31,15 @@ export class Shape {
 
         // Make drag points
         const me = this;
-        function drawPoint(start) {
+        function drawPoint(vertex) {
             let point = document.createElementNS('http://www.w3.org/2000/svg','circle');
-            point.setAttribute('cx', dimension*start.x);
-            point.setAttribute('cy', dimension*start.y);
+            point.setAttribute('cx', dimension*vertex.x);
+            point.setAttribute('cy', dimension*vertex.y);
             point.setAttribute("r", Math.floor(me.width/2)*1.05 + 4);
             point.setAttribute('fill', "blue");
+            if (vertex.type == "Q") {
+                point.setAttribute('fill', "red");
+            }
             return point;
         }
 
@@ -57,10 +60,19 @@ export class Shape {
             newPath.setAttribute("stroke-dasharray", dashlist);
         }
 
+        function addVText(index) {
+            let pt = verticies[index%(verticies.length)];
+            return Math.floor(dimension*pt.x) + " " + Math.floor(dimension*pt.y);
+        }
         // Add each vertex
-        let middleText = "M " + Math.floor(dimension*verticies[0].x) + " " + Math.floor(dimension*verticies[0].y);
+        let middleText = "M " + addVText(0);
         for (let i = 1; i < verticies.length; i++) {
-            middleText += " L " + Math.floor(dimension*verticies[i].x) + " " + Math.floor(dimension*verticies[i].y);
+            if (verticies[i].type == null) {
+                middleText += " L " + addVText(i);
+            } else if (verticies[i].type == "Q") {
+                middleText += " Q " + addVText(i) + " " + addVText(i + 1);
+                i++;
+            }
         }
         middleText += " Z";
         newPath.setAttributeNS(null, "d", middleText);
@@ -145,7 +157,8 @@ export class Shape {
         for (let i = 0; i < this.points.length; i++) {
             this.tempPoints[i] = {
                 "x": this.points[i].x,
-                "y": this.points[i].y
+                "y": this.points[i].y,
+                "type": this.points[i].type
             };
         }
 
