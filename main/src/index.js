@@ -14,6 +14,13 @@ function addShapesToPicker() {
         let size = base.clientWidth - 8;
         base.style.height = base.clientWidth + "px";
         let added = shapeList[i].draw(size);
+
+        let tooltip = document.createElement("span");
+        tooltip.innerText = shapeList[i].name;
+        tooltip.classList.add("tooltip");
+        base.appendChild(tooltip);
+        tooltip.style.top = -1*tooltip.clientHeight + "px";
+        
         base.appendChild(added);
         const you = shapeList[i];
         added.addEventListener("click", function() {
