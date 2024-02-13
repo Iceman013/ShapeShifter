@@ -39,20 +39,21 @@
             <div id="controls">
                 <div id="colorPicker">
                     <div>
-                        <label for="fill">Fill</label>
-                        <input id="fill" type="checkbox" checked="true">
-                        <br>
-                        <input id="fillColor" type="color" value="#000000">
+                        <div class="colorPicker">
+                            <label for="fillColor">Fill</label>
+                            <input id="fillColor" type="color" value="#000000">
+                        </div>
+                        <input id="fill" type="range" value="1" min="0" max="1" step="0.01" class="opacity range">
                     </div>
                     <div>
-                        <br>
-                        <button id="swap" class="googleButton"><span class="material-symbols-outlined">swap_horiz</span></button>
+                        <button id="swap" class="googleButton swapDiv"><span class="material-symbols-outlined">swap_horiz</span></button>
                     </div>
                     <div>
-                        <label for="border">Border</label>
-                        <input id="border" type="checkbox" checked="true">
-                        <br>
-                        <input id="borderColor" type="color" value="#000000">
+                        <div class="colorPicker">
+                            <label for="borderColor">Border</label>
+                            <input id="borderColor" type="color" value="#000000">
+                        </div>
+                        <input id="border" type="range" value="1" min="0" max="1" step="0.01" class="opacity range">
                     </div>
                 </div>
                 <br>

@@ -1,47 +1,47 @@
-.button {
-    background-color: rgb(82, 88, 228);
-    border-color: rgb(82, 88, 228);
-    border-radius: 50vh;
-    border-style: solid;
-    color: rgb(255, 255, 255);
-    font-family: sans-serif;
-    font-weight: 700;
-    font-size: 27px;
-    padding: 5px 30px 5px 30px;
-    margin-left: auto;
-    margin-right: auto;
-    align-self: center;
-    text-align: center;
-}
-input[type="checkbox"] {
-    accent-color: blue;
-}
-input[type="range"] {
-    accent-color: blue;
-}
-
-.button:disabled {
-    background-color: rgb(177, 177, 177);
-    border-color: rgb(177, 177, 177);
-}
-
-.button:not([disabled]):hover {
-    background-color: rgb(64, 70, 202);
-    cursor: pointer;
-}
-#submit {
-    text-align: center;
-}
-
 #colorPicker {
+    display: grid;
+    grid-template-columns: 1fr 20% 1fr;
+}
+.colorPicker {
     display: flex;
 }
-.range {
-    width: 80%;
+input[type="color"] {
+    margin-left: auto;
+    margin-right: 10%;
 }
+.swapDiv {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+input[type="range"] {
+    accent-color: blue;
+    width: 100%;
+}
+
 .submit {
     position: absolute;
     bottom: 0px;
     margin: 24px;
     width: calc(100% - 48px);
+
+    background-color: rgb(82, 88, 228);
+    border-color: rgb(82, 88, 228);
+    border-radius: 50vh;
+    color: rgb(255, 255, 255);
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 27px;
+    padding: 5px 30px 5px 30px;
+    align-self: center;
+    text-align: center;
+}
+.submit:disabled {
+    background-color: rgb(177, 177, 177);
+    border-color: rgb(177, 177, 177);
+}
+.submit:not([disabled]):hover {
+    background-color: rgb(64, 70, 202);
+    cursor: pointer;
 }

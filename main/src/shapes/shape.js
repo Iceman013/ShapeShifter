@@ -36,15 +36,11 @@ export class Shape {
         }
 
         let newPath = document.createElementNS("http://www.w3.org/2000/svg","path");
-        if (me.border) {
-            newPath.setAttribute("stroke", me.borderColor);
-        }
+        newPath.setAttribute("stroke", me.borderColor);
+        newPath.setAttribute("stroke-opacity", me.border);
         newPath.setAttribute('stroke-width', me.width);
-        if (me.fill) {
-            newPath.setAttribute("fill", me.fillColor);
-        } else {
-            newPath.setAttribute("fill", "none");
-        }
+        newPath.setAttribute("fill", me.fillColor);
+        newPath.setAttribute("fill-opacity", me.fill);
         let middleText = "M " + Math.floor(dimension*verticies[0].x) + " " + Math.floor(dimension*verticies[0].y);
         for (let i = 1; i < verticies.length; i++) {
             middleText += " L " + Math.floor(dimension*verticies[i].x) + " " + Math.floor(dimension*verticies[i].y);
@@ -132,21 +128,21 @@ export class Shape {
             };
         }
         this.chosen = -1;
-        this.fill = true;
+        this.fill = 1;
         this.fillColor = "#000000";
-        this.border = true;
+        this.border = 1;
         this.borderColor = "#000000";
         this.width = 2;
-        document.getElementById("fill").checked = this.fill;
+        document.getElementById("fill").value = this.fill;
         document.getElementById("fillColor").value = this.fillColor;
-        document.getElementById("border").checked = this.border;
+        document.getElementById("border").value = this.border;
         document.getElementById("borderColor").value = this.borderColor;
         document.getElementById("weight").value = this.width;
 
         const me = this;
 
         document.getElementById("fill").addEventListener("change", function() {
-            me.fill = document.getElementById("fill").checked;
+            me.fill = document.getElementById("fill").value;
             me.redraw();
         });
         document.getElementById("fillColor").addEventListener("change", function() {
@@ -154,7 +150,7 @@ export class Shape {
             me.redraw();
         });
         document.getElementById("border").addEventListener("change", function() {
-            me.border = document.getElementById("border").checked;
+            me.border = document.getElementById("border").value;
             me.redraw();
         });
         document.getElementById("borderColor").addEventListener("change", function() {
@@ -166,17 +162,17 @@ export class Shape {
             me.redraw();
         });
         document.getElementById("swap").addEventListener("click", function() {
-            let temp = document.getElementById("fill").checked;
-            document.getElementById("fill").checked = document.getElementById("border").checked;
-            document.getElementById("border").checked = temp;
+            let temp = document.getElementById("fill").value;
+            document.getElementById("fill").value = document.getElementById("border").value;
+            document.getElementById("border").value = temp;
 
             temp = document.getElementById("fillColor").value;
             document.getElementById("fillColor").value = document.getElementById("borderColor").value;
             document.getElementById("borderColor").value = temp;
 
-            me.fill = document.getElementById("fill").checked;
+            me.fill = document.getElementById("fill").value;
             me.fillColor = document.getElementById("fillColor").value;
-            me.border = document.getElementById("border").checked;
+            me.border = document.getElementById("border").value;
             me.borderColor = document.getElementById("borderColor").value;
             me.redraw();
         });
