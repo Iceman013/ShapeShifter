@@ -5,10 +5,20 @@
     border-style: solid;
     color: rgb(255, 255, 255);
     font-family: sans-serif;
-    float: right;
     font-weight: 700;
     font-size: 27px;
     padding: 5px 30px 5px 30px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    text-align: center;
+}
+input[type="checkbox"] {
+    accent-color: blue;
+}
+input[type="range"] {
+    accent-color: blue;
 }
 
 .button:disabled {
@@ -19,6 +29,9 @@
 .button:not([disabled]):hover {
     background-color: rgb(64, 70, 202);
     cursor: pointer;
+}
+#submit {
+    text-align: center;
 }
 
 #colorPicker {
