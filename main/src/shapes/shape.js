@@ -250,6 +250,7 @@ export class Shape {
                 this.classList.add("active");
                 me.redraw();
             });
+            document.getElementById(dashType.id).classList.remove("active");
         }
         document.getElementById(dashlist[0].id).classList.add("active");
 
