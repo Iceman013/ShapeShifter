@@ -8,23 +8,28 @@ export class Shape {
         this.borderColor = "#000000";
         this.fill = true;
         this.fillColor = "#000000";
+        this.dashes = [1];
         this.chosen = -1;
     }
 
     // Draw shape
     draw(dimension, verticies, edit) {
+        // Deal with blank inputs
         if (typeof verticies == "undefined") {
             verticies = this.points;
         }
         if (typeof edit == "undefined") {
             edit = false;
         }
+
+        // Create svg
         let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("aria-hidden","true");
         svg.setAttribute('viewbox', '0 0 ' + dimension + ' ' + dimension);
         svg.setAttribute('width', dimension + 'px');
         svg.setAttribute('height', dimension + 'px');
 
+        // Make drag points
         const me = this;
         function drawPoint(start) {
             let point = document.createElementNS('http://www.w3.org/2000/svg','circle');
@@ -35,12 +40,24 @@ export class Shape {
             return point;
         }
 
+        // Create path
         let newPath = document.createElementNS("http://www.w3.org/2000/svg","path");
-        newPath.setAttribute("stroke", me.borderColor);
-        newPath.setAttribute("stroke-opacity", me.border);
-        newPath.setAttribute('stroke-width', me.width);
-        newPath.setAttribute("fill", me.fillColor);
-        newPath.setAttribute("fill-opacity", me.fill);
+
+        // Add attributes
+        newPath.setAttribute("stroke", this.borderColor);
+        newPath.setAttribute("stroke-opacity", this.border);
+        newPath.setAttribute('stroke-width', this.width);
+        newPath.setAttribute("fill", this.fillColor);
+        newPath.setAttribute("fill-opacity", this.fill);
+        if (this.dashes.length > 1) {
+            let dashlist = this.dashes[0]*this.width;
+            for (let i = 1; i < this.dashes.length; i++) {
+                dashlist += "," + this.dashes[i]*this.width;
+            }
+            newPath.setAttribute("stroke-dasharray", dashlist);
+        }
+
+        // Add each vertex
         let middleText = "M " + Math.floor(dimension*verticies[0].x) + " " + Math.floor(dimension*verticies[0].y);
         for (let i = 1; i < verticies.length; i++) {
             middleText += " L " + Math.floor(dimension*verticies[i].x) + " " + Math.floor(dimension*verticies[i].y);
@@ -48,12 +65,15 @@ export class Shape {
         middleText += " Z";
         newPath.setAttributeNS(null, "d", middleText);
         svg.append(newPath);
+
+        // Draw drag points
         if (edit) {
             for (let i = 0; i < verticies.length; i++) {
                 let point = drawPoint(verticies[i]);
                 svg.append(point);
             }
         }
+
         return svg;
     }
 
@@ -120,6 +140,7 @@ export class Shape {
 
     // Display editting sidebar
     editMode() {
+        // Reset tempPoints
         this.tempPoints = [];
         for (let i = 0; i < this.points.length; i++) {
             this.tempPoints[i] = {
@@ -127,12 +148,17 @@ export class Shape {
                 "y": this.points[i].y
             };
         }
+
+        // Reset default customization
         this.chosen = -1;
         this.fill = 1;
         this.fillColor = "#000000";
         this.border = 1;
         this.borderColor = "#000000";
         this.width = 2;
+        this.dashes = 1;
+
+        // Reset controls
         document.getElementById("fill").value = this.fill;
         document.getElementById("fillColor").value = this.fillColor;
         document.getElementById("border").value = this.border;
@@ -141,6 +167,7 @@ export class Shape {
 
         const me = this;
 
+        // Set functions for change of controls
         document.getElementById("fill").addEventListener("change", function() {
             me.fill = document.getElementById("fill").value;
             me.redraw();
@@ -176,6 +203,19 @@ export class Shape {
             me.borderColor = document.getElementById("borderColor").value;
             me.redraw();
         });
+        const dashlist = [{"id": "noDash", "array": [1]}, {"id": "dashed", "array": [3, 1]}, {"id": "dotted", "array": [1, 1]}];
+        for (let i = 0; i < dashlist.length; i++) {
+            const dashType = dashlist[i];
+            document.getElementById(dashType.id).addEventListener("click", function() {
+                me.dashes = dashType.array;
+                for (let j = 0; j < dashlist.length; j++) {
+                    document.getElementById(dashlist[j].id).classList.remove("active");
+                }
+                this.classList.add("active");
+                me.redraw();
+            });
+        }
+        document.getElementById(dashlist[0].id).classList.add("active");
 
         this.redraw();
     }

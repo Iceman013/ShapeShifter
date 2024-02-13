@@ -20,6 +20,20 @@ input[type="range"] {
     width: 100%;
 }
 
+.dashPicker {
+    background-color: white;
+    cursor: pointer;
+    border: 3px solid black;
+    border-radius: 5px;
+    align-items: center;
+}
+.dashPicker:hover {
+    filter: brightness(90%);
+}
+.dashPicker.active {
+    border-color: blue;
+}
+
 .submit {
     position: absolute;
     bottom: 0px;
