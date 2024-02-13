@@ -1,3 +1,16 @@
+.moveControls {
+    background-color: white;
+    cursor: pointer;
+    border: 0px solid black;
+    border-radius: 7px;
+    align-items: center;
+    padding-top: 6px;
+    margin-right: 6px;
+}
+.moveControls:hover {
+    filter: brightness(90%);
+}
+
 #colorPicker {
     display: grid;
     grid-template-columns: 1fr 20% 1fr;
@@ -23,15 +36,20 @@ input[type="range"] {
 .dashPicker {
     background-color: white;
     cursor: pointer;
-    border: 3px solid black;
-    border-radius: 5px;
+    border: 0px solid black;
+    border-radius: 7px;
     align-items: center;
+    padding-top: 6px;
+    margin-right: 6px;
+}
+.dashPicker span {
+    transform: rotate(-45deg);
 }
 .dashPicker:hover {
     filter: brightness(90%);
 }
 .dashPicker.active {
-    border-color: blue;
+    filter: invert(1);
 }
 
 .submit {

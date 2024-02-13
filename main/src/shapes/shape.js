@@ -167,6 +167,42 @@ export class Shape {
 
         const me = this;
 
+        // Set functions for vertex change controls (flip, rotate, etc)
+        document.getElementById("flipH").addEventListener("click", function() {
+            for (let i = 0; i < me.tempPoints.length; i++) {
+                me.tempPoints[i].x = 1 - me.tempPoints[i].x;
+            }
+            me.redraw();
+        });
+        document.getElementById("flipV").addEventListener("click", function() {
+            for (let i = 0; i < me.tempPoints.length; i++) {
+                me.tempPoints[i].y = 1 - me.tempPoints[i].y;
+            }
+            me.redraw();
+        });
+        document.getElementById("rotR").addEventListener("click", function() {
+            for (let i = 0; i < me.tempPoints.length; i++) {
+                let tx = me.tempPoints[i].x;
+                let ty = me.tempPoints[i].y;
+                tx = tx - 0.5;
+                ty = ty - 0.5;
+                me.tempPoints[i].x = -1*ty + 0.5;
+                me.tempPoints[i].y = tx + 0.5;
+            }
+            me.redraw();
+        });
+        document.getElementById("rotL").addEventListener("click", function() {
+            for (let i = 0; i < me.tempPoints.length; i++) {
+                let tx = me.tempPoints[i].x;
+                let ty = me.tempPoints[i].y;
+                tx = tx - 0.5;
+                ty = ty - 0.5;
+                me.tempPoints[i].x = ty + 0.5;
+                me.tempPoints[i].y = -1*tx + 0.5;
+            }
+            me.redraw();
+        });
+
         // Set functions for change of controls
         document.getElementById("fill").addEventListener("change", function() {
             me.fill = document.getElementById("fill").value;
