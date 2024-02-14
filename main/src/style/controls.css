@@ -33,6 +33,12 @@ input[type="range"] {
     width: 100%;
 }
 
+#borderPicker {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2%;
+}
+
 .dashPicker {
     background-color: white;
     cursor: pointer;
@@ -49,6 +55,25 @@ input[type="range"] {
     filter: brightness(90%);
 }
 .dashPicker.active {
+    filter: invert(1);
+}
+
+.cornerPicker {
+    background-color: white;
+    cursor: pointer;
+    border: 0px solid black;
+    border-radius: 7px;
+    align-items: center;
+    padding-top: 6px;
+    margin-right: 6px;
+}
+.cornerPicker img {
+    width: 2em;
+}
+.cornerPicker:hover {
+    filter: brightness(90%);
+}
+.cornerPicker.active {
     filter: invert(1);
 }
 

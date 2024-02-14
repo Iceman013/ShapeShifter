@@ -3,12 +3,13 @@ export class Shape {
         this.name = name;
         this.points = points;
         this.tempPoints = [];
-        this.width = 2;
+        this.width = 4;
         this.border = true;
         this.borderColor = "#000000";
         this.fill = true;
         this.fillColor = "#000000";
         this.dashes = [1];
+        this.corner = "arcs";
         this.chosen = -1;
     }
 
@@ -52,6 +53,7 @@ export class Shape {
         newPath.setAttribute('stroke-width', this.width);
         newPath.setAttribute("fill", this.fillColor);
         newPath.setAttribute("fill-opacity", this.fill);
+        newPath.setAttribute("stroke-linejoin", this.corner);
         if (this.dashes.length > 1) {
             let dashlist = this.dashes[0]*this.width;
             for (let i = 1; i < this.dashes.length; i++) {
@@ -168,8 +170,9 @@ export class Shape {
         this.fillColor = "#000000";
         this.border = 1;
         this.borderColor = "#000000";
-        this.width = 2;
+        this.width = 4;
         this.dashes = 1;
+        this.corner = "arcs";
 
         // Reset controls
         document.getElementById("fill").value = this.fill;
@@ -266,6 +269,21 @@ export class Shape {
             document.getElementById(dashType.id).classList.remove("active");
         }
         document.getElementById(dashlist[0].id).classList.add("active");
+
+        const cornerlist = ["arcs", "bevel", "round"];
+        for (let i = 0; i < cornerlist.length; i++) {
+            const corner = cornerlist[i];
+            document.getElementById(corner).addEventListener("click", function() {
+                me.corner = corner;
+                for (let j = 0; j < cornerlist.length; j++) {
+                    document.getElementById(cornerlist[j]).classList.remove("active");
+                }
+                this.classList.add("active");
+                me.redraw();
+            });
+            document.getElementById(corner).classList.remove("active");
+        }
+        document.getElementById(cornerlist[0]).classList.add("active");
 
         this.redraw();
     }
