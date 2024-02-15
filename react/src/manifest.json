@@ -1,0 +1,21 @@
+{
+    "testId": "ee79b719-39e5-415b-970f-527b93d7f29b",
+    "name": "Shape Shifter",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ]
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html"
+        }
+    ]
+}

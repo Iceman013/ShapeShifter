@@ -1,0 +1,86 @@
+* {
+    font-family: "source-sans-pro", sans-serif;
+    user-select: none;
+    box-sizing: border-box;
+}
+h1 {
+    margin-top: 0px;
+}
+
+.googleButton {
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    margin-bottom: auto;
+    padding: 3px;
+}
+
+.hidden {
+    display: none;
+}
+
+#shapePicker {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 8px;
+    row-gap: 8px;
+    padding-right: 16px;
+}
+
+#shapeViewer {
+    border: 3px solid black;
+    width: 100%;
+    aspect-ratio: 1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.shapeElement {
+    border-radius: 2px;
+    aspect-ratio: 1/1;
+    outline: 1px solid black;
+    padding: 4px;
+    display: inline-block;
+    position: relative;
+}
+.tooltip {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px 8px;
+    
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+}
+.shapeElement:hover .tooltip {
+    visibility: visible;
+  }
+svg {
+    overflow: hidden;
+}
+.shapeElement:hover {
+    outline: 3px solid rgb(82, 88, 228);
+    cursor: pointer;
+}
+
+#shapeEditor {
+    display: none;
+}
+#editTitle {
+    display: flex;
+}
+#editTitle > div {
+    margin-right: 10px;
+}
+.autoAlign {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+svg {
+    cursor: pointer;
+}

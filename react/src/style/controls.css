@@ -1,0 +1,104 @@
+.moveControls {
+    background-color: white;
+    cursor: pointer;
+    border: 0px solid black;
+    border-radius: 7px;
+    align-items: center;
+    padding-top: 6px;
+    margin-right: 6px;
+}
+.moveControls:hover {
+    filter: brightness(90%);
+}
+
+#colorPicker {
+    display: grid;
+    grid-template-columns: 1fr 20% 1fr;
+}
+.colorPicker {
+    display: flex;
+}
+input[type="color"] {
+    margin-left: auto;
+    margin-right: 10%;
+}
+.swapDiv {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+input[type="range"] {
+    accent-color: blue;
+    width: 100%;
+}
+
+#borderPicker {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2%;
+}
+
+.dashPicker {
+    background-color: white;
+    cursor: pointer;
+    border: 0px solid black;
+    border-radius: 7px;
+    align-items: center;
+    padding-top: 6px;
+    margin-right: 6px;
+}
+.dashPicker span {
+    transform: rotate(-45deg);
+}
+.dashPicker:hover {
+    filter: brightness(90%);
+}
+.dashPicker.active {
+    filter: invert(1);
+}
+
+.cornerPicker {
+    background-color: white;
+    cursor: pointer;
+    border: 0px solid black;
+    border-radius: 7px;
+    align-items: center;
+    padding-top: 6px;
+    margin-right: 6px;
+}
+.cornerPicker img {
+    width: 2em;
+}
+.cornerPicker:hover {
+    filter: brightness(90%);
+}
+.cornerPicker.active {
+    filter: invert(1);
+}
+
+.submit {
+    position: absolute;
+    bottom: 0px;
+    margin: 24px;
+    width: calc(100% - 48px);
+
+    background-color: rgb(82, 88, 228);
+    border-color: rgb(82, 88, 228);
+    border-radius: 50vh;
+    color: rgb(255, 255, 255);
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 27px;
+    padding: 5px 30px 5px 30px;
+    align-self: center;
+    text-align: center;
+}
+.submit:disabled {
+    background-color: rgb(177, 177, 177);
+    border-color: rgb(177, 177, 177);
+}
+.submit:not([disabled]):hover {
+    background-color: rgb(64, 70, 202);
+    cursor: pointer;
+}
