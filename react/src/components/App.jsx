@@ -117,7 +117,7 @@ function App({ addOnUISdk }) {
                         </div>
                     </div>
                     <hr />
-                    <button className="submit button" id="addShape">Add Shape</button>
+                    <Button className="submit" id="addShape">Add Shape</Button>
                 </div>
             </div>
             <p id="output"></p>
