@@ -7,7 +7,7 @@ const isEnvProduction = process.env.NODE_ENV === "production";
 module.exports = {
     mode: isEnvProduction ? "production" : "development",
     devtool: isEnvProduction ? "source-map" : "eval-source-map",
-    entry: "./src/index.js",
+    entry: "./src/index.jsx",
     experiments: {
         outputModule: true
     },
@@ -23,17 +23,14 @@ module.exports = {
             template: "src/index.html",
             scriptLoading: "module"
         }),
-        new CopyWebpackPlugin({            
-            patterns: [
-                { from: "src/*.json", to: "[name][ext]" },                
-                { from: "src/*.png", to: "[name][ext]", noErrorOnMissing: true },
-            ],
+        new CopyWebpackPlugin({
+            patterns: [{ from: "src/*.json", to: "[name][ext]" }]
         })
     ],
     module: {
         rules: [
             {
-                test: /\.(js)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ["babel-loader"]
             },
@@ -44,6 +41,6 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: [".js", ".css"]
+        extensions: [".jsx", ".js", ".css"]
     }
 };

@@ -136,7 +136,7 @@ export class Shape {
             this.redraw();
         }
     }
-    mouseUp(event) {
+    mouseUp() {
         this.chosen = -1;
     }
     mouseDown(event) {
@@ -220,19 +220,19 @@ export class Shape {
         });
 
         // Set functions for change of controls
-        document.getElementById("fill").addEventListener("change", function() {
+        document.getElementById("fill").addEventListener("input", function() {
             me.fill = document.getElementById("fill").value;
             me.redraw();
         });
-        document.getElementById("fillColor").addEventListener("change", function() {
+        document.getElementById("fillColor").addEventListener("input", function() {
             me.fillColor = document.getElementById("fillColor").value;
             me.redraw();
         });
-        document.getElementById("border").addEventListener("change", function() {
+        document.getElementById("border").addEventListener("input", function() {
             me.border = document.getElementById("border").value;
             me.redraw();
         });
-        document.getElementById("borderColor").addEventListener("change", function() {
+        document.getElementById("borderColor").addEventListener("input", function() {
             me.borderColor = document.getElementById("borderColor").value;
             me.redraw();
         });

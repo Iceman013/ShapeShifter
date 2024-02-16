@@ -1,4 +1,5 @@
 /* Theme and typography imports */
+/*
 import '@spectrum-web-components/styles/typography.css';
 import '@spectrum-web-components/theme/express/theme-light.js';
 import '@spectrum-web-components/theme/express/scale-medium.js';
@@ -14,6 +15,7 @@ import '@spectrum-web-components/picker/sp-picker.js';
 import "@spectrum-web-components/slider/sp-slider.js";
 import "@spectrum-web-components/swatch/sp-swatch.js";
 import '@spectrum-web-components/switch/sp-switch.js';
+*/
 
 import addOnUISdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 import { addImageFromURL } from "./imageManipulation/addImage.js";
@@ -22,16 +24,16 @@ import { convertSVGToUrl } from "./imageManipulation/svgToCanvas.js";
 import { shapeList } from "./shapes/shapeList.js";
 import { Shape } from "./shapes/shape.js";
 
-import "./style/style.css";
-import "./style/controls.css";
+// import "./style/style.css";
+// import "./style/controls.css";
 
 // import cornerArcs from "./images/cornerArcs.png";
 // import cornerBevel from "./images/cornerBevel.png";
 // import cornerRound from "./images/cornerRound.png";
 
-addOnUISdk.app.on("themechange", (data) => { 
-    applyTheme(data.theme); 
-});
+// addOnUISdk.app.on("themechange", (data) => { 
+    // applyTheme(data.theme); 
+// });
 
 
 function addShapesToPicker() {
@@ -71,21 +73,23 @@ function addShapesToPicker() {
         chosenShape.mouseMove(event);
     });
 
-    document.addEventListener("mouseup", function(event) {
-        chosenShape.mouseUp(event);
+    document.addEventListener("mouseup", function() {
+        chosenShape.mouseUp();
     });
 }
 
 
 addOnUISdk.ready.then(function() {
-    addShapesToPicker();
+    setTimeout(function() {
+        addShapesToPicker();
 
-    const addShape = document.getElementById("addShape");
-    addShape.addEventListener("click", function() {
-        convertSVGToUrl(document.getElementById("hiddenReal"));
-        setTimeout(function() {
-            let url = document.querySelector("img").src;
-            addImageFromURL(url)
-        }, 100);
-    });
+        const addShape = document.getElementById("addShape");
+        addShape.addEventListener("click", function() {
+            convertSVGToUrl(document.getElementById("hiddenReal"));
+            setTimeout(function() {
+                let url = document.querySelector("img").src;
+                addImageFromURL(url)
+            }, 100);
+        });
+    }, 100);
 });
