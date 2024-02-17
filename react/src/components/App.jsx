@@ -39,7 +39,7 @@ function App({ addOnUISdk }) {
                 <div id="title">
                     <h1>Shape Shifter</h1>
                 </div>
-                <p>Pick a shape template</p>
+                <p className="large-font">Pick a shape template</p>
                 <div id="shapePicker"></div>
             </div>
             <div id="shapeEditor">
@@ -52,7 +52,7 @@ function App({ addOnUISdk }) {
                     </div>
                 </div>
                 <div id="shapeViewer"></div>
-                <div id="controls">
+                <div id="controls" className="large-font">
                     <div>
                         <button id="flipH" className="moveControls">
                             <span className="material-symbols-outlined">flip</span>
@@ -89,7 +89,6 @@ function App({ addOnUISdk }) {
                     </div>
                     <br />
                     <label htmlFor="weight">Border Thickness</label>
-                    <br />
                     <Slider id="weight" type="range" value="4" min="1" max="30" step="1" className="range"></Slider>
                     <br />
                     <div id="borderPicker">
@@ -117,7 +116,7 @@ function App({ addOnUISdk }) {
                         </div>
                     </div>
                     <hr />
-                    <Button className="submit" id="addShape">Add Shape</Button>
+                    <Button className="submit large-font" id="addShape">Add Shape</Button>
                 </div>
             </div>
             <p id="output"></p>

@@ -56,7 +56,7 @@ function addShapesToPicker() {
         const you = shapeList[i];
         added.addEventListener("click", function() {
             document.getElementById("shapeSelector").style.display = "none";
-            document.getElementById("shapeEditor").style.display = "block";
+            document.getElementById("shapeEditor").style.display = "flex";
             chosenShape = you;
             you.editMode();
         });
