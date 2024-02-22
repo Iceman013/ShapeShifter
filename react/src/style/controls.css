@@ -22,6 +22,13 @@
 .colorPicker {
     display: flex;
 }
+#borderColor, #fillColor {
+    margin-left: auto;
+    margin-right: 0px;
+}
+.sudoLabel {
+    margin-right: 1em;
+}
 input[type="color"] {
     margin-left: auto;
     margin-right: 10%;

@@ -71,7 +71,7 @@ function App({ addOnUISdk }) {
                     <div id="colorPicker">
                         <div>
                             <div className="colorPicker">
-                                <label htmlFor="fillColor">Fill</label>
+                                <text className="sudoLabel">Fill</text>
                                 <input id="fillColor" type="color"></input>
                             </div>
                             <Slider id="fill" type="range" value="1" min="0" max="1" step="0.01" className="opacity range"></Slider>
@@ -81,7 +81,7 @@ function App({ addOnUISdk }) {
                         </div>
                         <div>
                             <div className="colorPicker">
-                                <label htmlFor="borderColor">Border</label>
+                                <text className="sudoLabel">Border</text>
                                 <input id="borderColor" type="color"></input>
                             </div>
                             <Slider id="border" type="range" value="1" min="0" max="1" step="0.01" className="opacity range"></Slider>
