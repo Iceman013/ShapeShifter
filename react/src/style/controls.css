@@ -50,25 +50,6 @@ input[type="range"] {
     column-gap: 2%;
 }
 
-.dashPicker {
-    background-color: white;
-    cursor: pointer;
-    border: 0px solid black;
-    border-radius: 7px;
-    align-items: center;
-    padding-top: 6px;
-    margin-right: 6px;
-}
-.dashPicker span {
-    transform: rotate(-45deg);
-}
-.dashPicker:hover {
-    filter: brightness(90%);
-}
-.dashPicker.active {
-    filter: invert(1);
-}
-
 .cornerPicker {
     background-color: white;
     cursor: pointer;

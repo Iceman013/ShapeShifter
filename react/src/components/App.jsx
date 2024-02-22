@@ -93,14 +93,14 @@ function App({ addOnUISdk }) {
                     <br />
                     <div id="borderPicker">
                         <div>
-                            <button id="noDash" className="dashPicker">
-                                <span className="material-symbols-outlined">horizontal_rule</span>
+                            <button id="noDash" className="cornerPicker">
+                                <img src="https://github.com/Iceman013/ShapeShifter/blob/88670c397f1379f2a04204dfbc9866e7e039394b/react/src/images/dashLine.png?raw=true" />
                             </button>
-                            <button id="dashed" className="dashPicker">
-                                <span className="material-symbols-outlined">unknown_med</span>
+                            <button id="dashed" className="cornerPicker">
+                                <img src="https://raw.githubusercontent.com/Iceman013/ShapeShifter/88670c397f1379f2a04204dfbc9866e7e039394b/react/src/images/dashed.png" />
                             </button>
-                            <button id="dotted" className="dashPicker">
-                                <span className="material-symbols-outlined">more_horiz</span>
+                            <button id="dotted" className="cornerPicker">
+                                <img src="https://raw.githubusercontent.com/Iceman013/ShapeShifter/88670c397f1379f2a04204dfbc9866e7e039394b/react/src/images/dotted.png" />
                             </button>
                         </div>
                         <div>
